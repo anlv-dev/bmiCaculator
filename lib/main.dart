@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icon_content.dart';
+import 'reusable_card.dart';
 
 const Color colorReusableCard = Color(0xFF1E1F34);
 const Color colorBottomContainer = Color(0xFFEA1556);
+const Color inactiveCardColour = Color(0xFF111328);
+const Color activeCardColour = Color(0xFF1D1E33); //0xFF1D1E33
 const double bottomContainerHeight = 80.0;
+enum Gender {
+  male,
+  female,
+}
 
 void main() => runApp(BMICalculator());
 
@@ -26,6 +34,31 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
+  Color maleCardColour = inactiveCardColour;
+  Color femaleCardColour = inactiveCardColour;
+
+  // Pass 1 : Male pressed; Pass 2 : Female Pressed
+  void updateColour(Gender selectedGender) {
+    if (selectedGender == Gender.male) {
+      if (maleCardColour == inactiveCardColour) {
+        maleCardColour = activeCardColour;
+
+        femaleCardColour = inactiveCardColour;
+      } else {
+        maleCardColour = inactiveCardColour;
+      }
+    }
+
+    if (selectedGender == Gender.female) {
+      if (femaleCardColour == inactiveCardColour) {
+        femaleCardColour = activeCardColour;
+        maleCardColour = inactiveCardColour;
+      } else {
+        femaleCardColour = inactiveCardColour;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,16 +75,36 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(
-                    childCard: IconContent(
-                      iconData: FontAwesomeIcons.mars,
-                      label: 'MALE',
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColour(Gender.male);
+                      });
+                    },
+                    child: ReusableCard(
+                      childCard: IconContent(
+                        iconData: FontAwesomeIcons.mars,
+                        label: 'MALE',
+                      ),
+                      colour: maleCardColour,
                     ),
-                    colour: colorReusableCard,
                   ),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: colorReusableCard),
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        updateColour(Gender.female);
+                      });
+                    },
+                    child: ReusableCard(
+                      childCard: IconContent(
+                        iconData: FontAwesomeIcons.venus,
+                        label: 'FEMALE',
+                      ),
+                      colour: femaleCardColour,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -84,49 +137,6 @@ class _InputPageState extends State<InputPage> {
             height: bottomContainerHeight,
           )
         ],
-      ),
-    );
-  }
-}
-
-class IconContent extends StatelessWidget {
-  IconContent({this.iconData, this.label});
-  final IconData iconData;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          iconData,
-          size: 80.0,
-        ),
-        SizedBox(
-          height: 15.0,
-        ),
-        Text(
-          label,
-          style: TextStyle(fontSize: 18, color: Color(0xFF8E8E9B)),
-        )
-      ],
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour, this.childCard});
-  final Color colour;
-  final childCard;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: childCard,
-      margin: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(5.0),
       ),
     );
   }
