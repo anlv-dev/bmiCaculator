@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+const Color colorReusableCard = Color(0xFF1E1F34);
+const Color colorBottomContainer = Color(0xFFEA1556);
+const double bottomContainerHeight = 80.0;
+
 void main() => runApp(BMICalculator());
 
 class BMICalculator extends StatelessWidget {
@@ -37,10 +41,10 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                  child: ReusableCard(colour: colorReusableCard),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                  child: ReusableCard(colour: colorReusableCard),
                 ),
               ],
             ),
@@ -49,7 +53,7 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                  child: ReusableCard(colour: colorReusableCard),
                 ),
               ],
             ),
@@ -58,14 +62,20 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                  child: ReusableCard(colour: colorReusableCard),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                  child: ReusableCard(colour: colorReusableCard),
                 ),
               ],
             ),
           ),
+          Container(
+            margin: EdgeInsets.only(top: 10.0),
+            color: colorBottomContainer,
+            width: double.infinity,
+            height: bottomContainerHeight,
+          )
         ],
       ),
     );
