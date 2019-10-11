@@ -6,6 +6,10 @@ class BMICalculator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark().copyWith(
+        primaryColor: Color(0xFF090C23), //Color(0xFF0A0E21),
+        scaffoldBackgroundColor: Color(0xFF090C23),
+      ),
       home: InputPage(),
     );
   }
@@ -21,14 +25,63 @@ class _InputPageState extends State<InputPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI CALCULATOR'),
+        title: Center(
+          child: Text(
+            'BMI CALCULATOR',
+          ),
+        ),
       ),
-      body: Center(
-        child: Text('Body Text'),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                ),
+                Expanded(
+                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                ),
+                Expanded(
+                  child: ReusableCard(colour: Color(0xFF1E1F34)),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
+    );
+  }
+}
+
+class ReusableCard extends StatelessWidget {
+  ReusableCard({@required this.colour});
+  final Color colour;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: colour,
+        borderRadius: BorderRadius.circular(5.0),
       ),
     );
   }
