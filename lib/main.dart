@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const Color colorReusableCard = Color(0xFF1E1F34);
 const Color colorBottomContainer = Color(0xFFEA1556);
@@ -41,7 +42,13 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  child: ReusableCard(colour: colorReusableCard),
+                  child: ReusableCard(
+                    childCard: IconContent(
+                      iconData: FontAwesomeIcons.mars,
+                      label: 'MALE',
+                    ),
+                    colour: colorReusableCard,
+                  ),
                 ),
                 Expanded(
                   child: ReusableCard(colour: colorReusableCard),
@@ -82,12 +89,40 @@ class _InputPageState extends State<InputPage> {
   }
 }
 
+class IconContent extends StatelessWidget {
+  IconContent({this.iconData, this.label});
+  final IconData iconData;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          iconData,
+          size: 80.0,
+        ),
+        SizedBox(
+          height: 15.0,
+        ),
+        Text(
+          label,
+          style: TextStyle(fontSize: 18, color: Color(0xFF8E8E9B)),
+        )
+      ],
+    );
+  }
+}
+
 class ReusableCard extends StatelessWidget {
-  ReusableCard({@required this.colour});
+  ReusableCard({@required this.colour, this.childCard});
   final Color colour;
+  final childCard;
   @override
   Widget build(BuildContext context) {
     return Container(
+      child: childCard,
       margin: EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: colour,
