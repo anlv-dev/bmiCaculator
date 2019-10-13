@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+const Color kColorReusableCard = Color(0xFF1E1F34);
+const Color kColorBottomContainer = Color(0xFFEA1556);
+const Color kInactiveCardColour = Color(0xFF111328);
+const Color kActiveCardColour = Color(0xFF1D1E33); //0xFF1D1E33
+const double kBottomContainerHeight = 80.0;
+const Color kInActiveSliderColour = Color(0xFF7C7C8A);
+const Color kActiveSliderColour = Color(0xFFEA1556);
+
+
+const TextStyle kLabelNumberStyle = TextStyle(fontSize: 50.0, fontWeight: FontWeight.w900,);
+
+const TextStyle kLabelTextStyle = TextStyle(
+  fontSize: 18,
+  color: Color(0xFF8E8E9B),
+);
