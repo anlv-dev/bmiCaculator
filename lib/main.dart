@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_git_example/result_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'icon_content.dart';
-import 'reusable_card.dart';
+import 'components/icon_content.dart';
+import 'components/reusable_card.dart';
 import 'constants.dart';
+import 'components/round_icon_button.dart';
+import 'components/button_bottom.dart';
 
 enum Gender {
   male,
@@ -33,6 +36,7 @@ class _InputPageState extends State<InputPage> {
   Gender selectedGender;
   int height = 180;
   int weight = 74;
+  int age = 17;
 
   @override
   Widget build(BuildContext context) {
@@ -178,12 +182,14 @@ class _InputPageState extends State<InputPage> {
                             SizedBox(
                               width: 10.0,
                             ),
-                            RoundIconButton(icon: FontAwesomeIcons.plus,onPressed: (){
-                              setState(() {
-                                weight++;
-                              });
-                            },)
-
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            )
                           ],
                         )
                       ],
@@ -191,38 +197,62 @@ class _InputPageState extends State<InputPage> {
                   ),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: kColorReusableCard),
+                  child: ReusableCard(
+                    colour: kColorReusableCard,
+                    childCard: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kLabelNumberStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  age--;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(top: 10.0),
-            color: kColorBottomContainer,
-            width: double.infinity,
-            height: kBottomContainerHeight,
+          ButtonBottom(
+            textButton: 'CACULATE YOUR BMI',
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultPage(),
+                ),
+              );
+            },
           )
         ],
-      ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({@required this.icon, @required this.onPressed});
-  final IconData icon;
-  final Function onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return RawMaterialButton(
-      child: Icon(icon),
-      onPressed: onPressed,
-      elevation: 6.0,
-      shape: CircleBorder(),
-      fillColor: Color(0xFF4C4F5E),
-      constraints: BoxConstraints.tightFor(
-        width: 56.0,
-        height: 56.0,
       ),
     );
   }
